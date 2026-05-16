@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import './index.css'
 
 function App() {
@@ -14,24 +14,17 @@ function App() {
   const [history, setHistory] = useState([])
   const [settings, setSettings] = useState(null)
 
-  useEffect(() => {
-    checkServer()
-    if (activeTab === 'dashboard') fetchStudents()
-    if (activeTab === 'history') fetchHistory()
-    if (activeTab === 'settings') fetchSettings()
-  }, [search, yearFilter, activeTab])
-
-  const checkServer = async () => {
+  const checkServer = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3001/health')
       if (response.ok) setServerStatus('online')
       else setServerStatus('offline')
-    } catch (error) {
+    } catch {
       setServerStatus('offline')
     }
-  }
+  }, [])
 
-  const fetchStudents = async () => {
+  const fetchStudents = useCallback(async () => {
     setLoading(true)
     try {
       const query = new URLSearchParams()
@@ -45,9 +38,9 @@ function App() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [search, yearFilter])
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3001/api/history')
       const data = await response.json()
@@ -55,9 +48,9 @@ function App() {
     } catch (error) {
       console.error('Error fetching history:', error)
     }
-  }
+  }, [])
 
-  const fetchSettings = async () => {
+  const fetchSettings = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3001/api/settings')
       const data = await response.json()
@@ -65,7 +58,19 @@ function App() {
     } catch (error) {
       console.error('Error fetching settings:', error)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    checkServer() // eslint-disable-line react-hooks/set-state-in-effect
+    const interval = setInterval(checkServer, 30000) // Check every 30s
+    return () => clearInterval(interval)
+  }, [checkServer])
+
+  useEffect(() => {
+    if (activeTab === 'dashboard') fetchStudents() // eslint-disable-line react-hooks/set-state-in-effect
+    if (activeTab === 'history') fetchHistory()
+    if (activeTab === 'settings') fetchSettings()
+  }, [activeTab, fetchStudents, fetchHistory, fetchSettings])
 
   const handleFetchLinkedIn = async () => {
     if (!targetYear) {
@@ -84,7 +89,7 @@ function App() {
       if (!response.ok) throw new Error(data.message || 'Failed to fetch data')
       setMessage({ type: 'success', text: data.message })
       setYearFilter(targetYear)
-      fetchStudents()
+      // fetchStudents() is redundant here as setYearFilter will trigger the useEffect
     } catch (error) {
       setMessage({ type: 'error', text: error.message })
     } finally {

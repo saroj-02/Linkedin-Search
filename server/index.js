@@ -29,7 +29,9 @@ const readHistory = () => {
 const writeHistory = (history) => {
     try {
         fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
-    } catch (error) {}
+    } catch (error) {
+        console.error('Error writing history:', error);
+    }
 };
 
 app.use(cors());
@@ -272,7 +274,7 @@ app.post('/api/fetch-linkedin', async (req, res) => {
             source: sourceUsed || "None (All APIs Failed)"
         });
         writeHistory(history.slice(0, 50));
-
+        
         if (newCandidates.length > 0) {
             const students = readData();
             const existingLinks = new Set(students.map(s => s.linkedin));
