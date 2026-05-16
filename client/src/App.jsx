@@ -16,7 +16,7 @@ function App() {
 
   const checkServer = useCallback(async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/health`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/health`)
       if (response.ok) setServerStatus('online')
       else setServerStatus('offline')
     } catch {
@@ -30,7 +30,7 @@ function App() {
       const query = new URLSearchParams()
       if (search) query.append('q', search)
       if (yearFilter) query.append('year', yearFilter)
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/students/search?${query.toString()}`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/students/search?${query.toString()}`)
       const data = await response.json()
       setStudents(data)
     } catch (error) {
@@ -42,7 +42,7 @@ function App() {
 
   const fetchHistory = useCallback(async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/history`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/history`)
       const data = await response.json()
       setHistory(data)
     } catch (error) {
@@ -52,7 +52,7 @@ function App() {
 
   const fetchSettings = useCallback(async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/settings`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/settings`)
       const data = await response.json()
       setSettings(data)
     } catch (error) {
@@ -80,7 +80,7 @@ function App() {
     setFetching(true)
     setMessage(null)
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/fetch-linkedin`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/fetch-linkedin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ year: targetYear })
