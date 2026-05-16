@@ -7,9 +7,13 @@
     "install-client": "cd client && npm install",
     "build-client": "cd client && npm run build",
     "start": "cd server && npm start",
+    "dev": "npm start",
     "build": "npm run install-server && npm run install-client && npm run build-client",
     "postinstall": "npm run install-server"
   },
   "author": "Saroj Padhi",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
