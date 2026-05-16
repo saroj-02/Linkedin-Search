@@ -7,7 +7,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const DATA_FILE = path.join(__dirname, 'students.json');
 const HISTORY_FILE = path.join(__dirname, 'history.json');
 

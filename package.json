@@ -1,0 +1,15 @@
+{
+  "name": "linkedin-search-root",
+  "version": "1.0.0",
+  "description": "Root package for LinkedIn Search deployment",
+  "scripts": {
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "build": "npm run install-server && npm run install-client && npm run build-client",
+    "postinstall": "npm run install-server"
+  },
+  "author": "Saroj Padhi",
+  "license": "ISC"
+}
