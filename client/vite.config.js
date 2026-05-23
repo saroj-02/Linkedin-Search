@@ -7,7 +7,12 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
-    allowedHosts: 'all',
+    allowedHosts: [
+      'linkedin-search-ll1r.onrender.com',
+      '.onrender.com',
+      'localhost',
+      '127.0.0.1'
+    ],
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
