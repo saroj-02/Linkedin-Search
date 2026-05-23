@@ -1,0 +1,30 @@
+[
+  {
+    "id": "job_ukzukis62",
+    "title": "web developer",
+    "description": "full stack developer with 2 years of experience\n",
+    "skills": [
+      "JavaScript",
+      "HTML/CSS",
+      "Git"
+    ],
+    "experienceRequired": 2,
+    "summary": "Requires proficiency in JavaScript, HTML/CSS, Git. Candidate will design, build, and support responsive modern web applications and cloud integrations.",
+    "methodUsed": "Rule-based Keywords",
+    "createdAt": "2026-05-23T13:51:24.011Z"
+  },
+  {
+    "id": "job_l8ned12x5",
+    "title": "Software Engineer",
+    "description": "full stack developer",
+    "skills": [
+      "JavaScript",
+      "HTML/CSS",
+      "Git"
+    ],
+    "experienceRequired": 2,
+    "summary": "Requires proficiency in JavaScript, HTML/CSS, Git. Candidate will design, build, and support responsive modern web applications and cloud integrations.",
+    "methodUsed": "Rule-based Keywords",
+    "createdAt": "2026-05-23T13:49:41.930Z"
+  }
+]
