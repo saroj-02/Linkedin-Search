@@ -1308,7 +1308,16 @@ app.post('/api/fetch-linkedin', async (req, res) => {
 });
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/dist')));
+const distPath = path.join(__dirname, '../client/dist');
+console.log(`[Express Boot] Static files folder path: ${distPath}`);
+console.log(`[Express Boot] Folder exists: ${fs.existsSync(distPath)}`);
+if (fs.existsSync(distPath)) {
+    console.log(`[Express Boot] Folder contents:`, fs.readdirSync(distPath));
+} else {
+    console.error(`[Express Boot] CRITICAL WARNING: '../client/dist' directory is missing! Ensure your Render Build Command is set to 'npm run build'.`);
+}
+
+app.use(express.static(distPath));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
